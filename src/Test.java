@@ -8,8 +8,8 @@ public class Test {
 	Dish d3 = new Dish("shawarama",10);
 	Dish d4 = new Dish("fries",7);
 	Dish d5 = new Dish("cola",4);
-	Restaurant r1 = new Restaurant("first burger",20);
-	Restaurant r2 = new Restaurant("the golden shawarma",30);
+	Restaurant r1 = new Restaurant("first burger");
+	Restaurant r2 = new Restaurant("the golden shawarma");
 	r1.addDish(d1);r1.addDish(d2);r1.addDish(d5);
 	r2.addDish(d3);r2.addDish(d4);r2.addDish(d3);
 	Customer c1 = new PremiumCustomer("ibra",200);
@@ -17,7 +17,7 @@ public class Test {
 	Customer c3 = new PremiumCustomer("yasser",100);
 	Driver v1 = new Driver("fahad");
 	Driver v2 = new Driver("ali");
-	AppManager app = new AppManager(10,20,5);
+	AppManager app = new AppManager();
 	app.addRest(r1);app.addRest(r2);
 	app.addCust(c1);app.addCust(c2);app.addCust(c3);
 	app.addDriver(v1);app.addDriver(v2);
@@ -43,7 +43,7 @@ public class Test {
 			System.out.println("Choose a restaurant");
 			app.displayRest();
 			Restaurant r= app.getRest(input.nextInt() -1);
-			Driver d = app.findDriver(0);
+			Driver d = app.findDriver();
 			if (d == null) {
 				System.out.println("sorry there is no free driver");
 				break;
@@ -97,8 +97,7 @@ public class Test {
 				case 2:
 					System.out.println("--------------------------");
 					System.out.println("Enter the restaurant name:");
-					System.out.println("Enter the maximum number of orders the restaurant can handle:");
-					Restaurant rest2 = new Restaurant(input.nextLine(),input.nextInt());
+					Restaurant rest2 = new Restaurant(input.nextLine());
 					System.out.println("Creating The Menu\nEnter the name and the price of your dish. Enter None and -1 when you are done.");
 					String n = input.next();int p = input.nextInt();
 					while(p != -1) {

@@ -2,35 +2,55 @@ import java.util.Arrays;
 
 public class Restaurant implements Wallet {
 	private String name;
-	private int numOfDish,numOfOrder;
+	//old array -> private int numOfDish,numOfOrder;
 	private double revenue,balance;
-	Dish[] menu;
-	Order[] listOfOrder;
-	public Restaurant(String name,int sizeOfOrder) {
+	//old array -> Dish[] menu;
+	// old array -> Order[] listOfOrder;
+	private List menu;
+	private List listOfOrder;
+	public Restaurant(String name) {
 		
 		this.name = name;
-		this.numOfDish = 0;
-		this.numOfOrder = 0;
+		// old array ->	this.numOfDish = 0;
+		// old array ->	this.numOfOrder = 0;
 		this.revenue = 0;
 		this.balance = 0;
-		menu = new Dish[10];
-		listOfOrder = new Order[sizeOfOrder];
+		//menu = new Dish[10];
+		//listOfOrder = new Order[sizeOfOrder];
+		menu = new List();
+		listOfOrder = new List();
 	}
 	public Restaurant(Restaurant  r) {
 		
 		this.name = r.name;
-		this.numOfDish = r.numOfDish;
-		this.numOfOrder = r.numOfOrder;
+		// old array ->this.numOfDish = r.numOfDish;
+		// old array ->this.numOfOrder = r.numOfOrder;
 		this.revenue = r.revenue;
 		this.balance = r.balance;
-		
+		/* old array ->
 		this.listOfOrder = new Order[r.listOfOrder.length];
 		for (int i = 0; i< this.numOfOrder; i++) 
 			this.listOfOrder[i] = r.listOfOrder[i];
 		this.menu = new Dish[r.menu.length];
 		for (int i =0; i<this.numOfDish;i++)
 			this.menu[i] = r.menu[i];
-	}
+			*/
+		listOfOrder = new List();
+		Node current = r.listOfOrder.getHead();
+		while(current != null) {
+			listOfOrder.insertAtBack(current.getData());
+			current = current.getNext();
+		}
+		
+		menu = new List();
+		 current = r.menu.getHead();
+		while(current != null) {
+			menu.insertAtBack(current.getData());
+			current = current.getNext();
+		}
+			
+		}
+	
 	public void addMoney(double r) {
 		revenue += r;
 		balance+=r;
@@ -48,40 +68,22 @@ public class Restaurant implements Wallet {
 		
 	}
 	public boolean addDish(Dish d) {
-		if (numOfDish < menu.length) {
-			menu[numOfDish++] = d;
-			
-			return true;
-		}
-		else {
-			System.out.println("you can`t add anymore dishs");
-			return false;
-		}
+		menu.insertAtBack(d);
+		return true;
+		
 	}
 	// return a dish by indexing
 	public Dish getDish(int i) {
-		if( i < this.menu.length)
-			return this.menu[i];
-		else {
-			
-			return null;
-		}
+		return (Dish)menu.getElementAt(i);
 	}
 	public boolean addOrder(Order o) {
-		if (this.numOfOrder < this.listOfOrder.length) {
-			this.listOfOrder[this.numOfOrder++] = o;
-			return true;
-		}
-		else {
-			System.out.println("you can`t add anymore orders");
-			return false;
-		}
+		listOfOrder.insertAtFront(o);
+		return true;
 	}
+	
 	public void displayMenu() {
 		System.out.println(this.name + " menu");
-		for (int i =0 ; i<numOfDish;i++) {
-			System.out.println( i+1 + "-"+menu[i]);
-		}
+		menu.print();
 	}
 	public String getName() {
 		return name;
