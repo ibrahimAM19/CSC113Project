@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Dish {
+public class Dish  implements Serializable{
 	private String name;
 	
 	

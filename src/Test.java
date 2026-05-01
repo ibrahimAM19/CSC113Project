@@ -1,26 +1,44 @@
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.*;
 public class Test {
 	public static void main(String[] args) {
 	Scanner input = new Scanner(System.in);	
 	
-	Dish d1 = new Dish("burger",25);
-	Dish d2 = new Dish("pizza",40);
-	Dish d3 = new Dish("shawarama",10);
-	Dish d4 = new Dish("fries",7);
-	Dish d5 = new Dish("cola",4);
-	Restaurant r1 = new Restaurant("first burger");
-	Restaurant r2 = new Restaurant("the golden shawarma");
-	r1.addDish(d1);r1.addDish(d2);r1.addDish(d5);
-	r2.addDish(d3);r2.addDish(d4);r2.addDish(d3);
-	Customer c1 = new PremiumCustomer("ibra",200);
-	Customer c2= new RegularCustomer("Ahmed",150);
-	Customer c3 = new PremiumCustomer("yasser",100);
-	Driver v1 = new Driver("fahad");
-	Driver v2 = new Driver("ali");
-	AppManager app = new AppManager();
-	app.addRest(r1);app.addRest(r2);
-	app.addCust(c1);app.addCust(c2);app.addCust(c3);
-	app.addDriver(v1);app.addDriver(v2);
+	AppManager app = null;
+	try {
+		ObjectInputStream file = new ObjectInputStream(new FileInputStream("info1.dat"));
+		app = (AppManager) file.readObject();
+		file.close();
+		
+	}
+	catch (IOException e) {
+		    e.printStackTrace();
+			app =  new AppManager();
+			Dish d1 = new Dish("burger",25);
+			Dish d2 = new Dish("pizza",40);
+			Dish d5 = new Dish("cola",4);
+			
+			Restaurant r1 = new Restaurant("first burger");
+			r1.addDish(d1);r1.addDish(d2);r1.addDish(d5);
+		
+			Customer c1 = new PremiumCustomer("ibra",200);
+			Driver v1 = new Driver("fahad");
+		
+			app.addRest(r1);
+			app.addCust(c1);
+			app.addDriver(v1);
+			
+	}
+	catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	
+	
 	
 	int option ;
 	System.out.println("Welocome to The delivery app  ");
@@ -30,7 +48,8 @@ public class Test {
 		System.out.println("2- Log in or sign in as restaurant manger");
 		System.out.println("3- Sing in as a new  customer");
 		System.out.println("4- Add money to cutomer a cccount");
-		System.out.println("5- Exit");
+		System.out.println("5- Add a driver");
+		System.out.println("6- Exit");
 		option = input.nextInt();
 		 
 		switch (option) {
@@ -139,7 +158,22 @@ public class Test {
 			e.addMoney(input.nextDouble());
 			break;
 		case 5:
+			System.out.print("name:");
+			Driver driver = new Driver(input.next());
+			app.addDriver(driver);
+			break;
+		case 6:
 			//exit
+			try {
+				FileOutputStream f = new FileOutputStream("info1.dat");
+				ObjectOutputStream write = new ObjectOutputStream(f);
+				write.writeObject(app);
+				write.flush();
+				write.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();	
+			} 
 			System.exit(0);
 			break;
 		default:
@@ -152,41 +186,6 @@ public class Test {
 	
 	
 	
-	/*
-	
-	app.displayRest();
-	//chech that find driver is not null
-	Restuarant choosenRest = app.getRest(1-1);
-	Order o1 = new Order(choosenRest,c1,app.findDriver(0));
-	choosenRest.displayMenu();
-	o1.addDish(o1.getRestaurant().getDish(1));
-	System.out.println(o1);
-	c1.addMoney(15);
-	app.placeOrder(o1);
-	
-	Order o2 = new Order(app.getRest(2-1),c2,app.findDriver(0));
-	r2.displayMenu();
-	o2.addDish(o2.getRestaurant().getDish(2)) ;o2.addDish(o2.getRestaurant().getDish(2));o2.addDish(o2.getRestaurant().getDish(2));
-	System.out.println(o2);
-	c2.addMoney(46);
-	app.placeOrder(o2);
-	
-	System.out.println(c1 + "\n"+ c2);
-	System.out.println(v1);
-	System.out.println(v2);
-	//Order o3 = new Order(r1,c1,app.findDriver(0));
-	//System.out.println(o3);
-	int a= app.searchRest("First");
-	app.displayRest();
-	
-	
-	/*
-	Customer c = new PremiumCustomer("ibra");
-	Driver d= new Driver("fahad");
-	Order o =  new Order(r,c,d);
-	Order v = new Order(o); 
-	r.addDish(d1);r.addDish(d2);
-	
-	*/
+
 }
 	}

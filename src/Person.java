@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public abstract class Person   implements Wallet{
+public abstract class Person   implements Wallet ,Serializable{
 	protected String name;
 	protected double balance;
 	public Person(String name, double balance) {

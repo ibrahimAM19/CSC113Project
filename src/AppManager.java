@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class AppManager {
+public class AppManager  implements Serializable{
 	// old array -> private int numOfRest,numOfCust,numOfDriver;
 	private List listOfRest;
 	private List listOfCust;
@@ -154,14 +155,22 @@ public class AppManager {
 	}
 	public void displayRest() {
 		
+		List  l = new List();
+		 l.insertAtBack(3);
+		 l.insertAtBack("a");
+		 l.insertAtBack(true);
 		
+		 
 		Node current = listOfRest.getHead();
 		int count =1;
 		while (current != null) {
+			// 
 			Restaurant r = (Restaurant) current.getData();
 			System.out.println( count + "-"+ r.getName());
-			current = current.getNext();
 			count++;
+			//
+			current = current.getNext();
+		
 		}
 		/* old arrya ->
 		 * 
@@ -174,8 +183,8 @@ public class AppManager {
 	public Restaurant getRest(int i) {
 		return (Restaurant)listOfRest.getElementAt(i);
 	}
-	public void displayCust() {
-		listOfCust.print();
+	public boolean displayCust() {
+		return listOfCust.print();
 		
 		/* old array ->
 		 * 
