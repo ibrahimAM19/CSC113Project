@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class Restaurant implements Wallet {
+public class Restaurant implements Wallet ,Serializable{
 	private String name;
 	//old array -> private int numOfDish,numOfOrder;
 	private double revenue,balance;

@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Order {
+public class Order implements Serializable {
 	private Restaurant restaurant;
 	private Customer customer;
 	private Driver driver;

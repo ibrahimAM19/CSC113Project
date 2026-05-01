@@ -1,4 +1,6 @@
-public class List {
+import java.io.Serializable;
+
+public class List implements Serializable {
     private Node head;
     private Node tail;
     private String Name;
@@ -124,10 +126,10 @@ public class List {
     	}
     	return size;
     }
-    public void print() {
+    public boolean print() {
     	if (isEmpty()) { //
             System.out.println("The list is empty.");
-            return;
+            return false;
         }
 
         Node current = head;
@@ -137,6 +139,6 @@ public class List {
             current = current.getNext(); 
             count++;
         }
-        
+        return true;
     }
    }
