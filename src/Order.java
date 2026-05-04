@@ -36,17 +36,7 @@ public class Order implements Serializable {
 	
 	// add dish to the order and discout by 15% if the customer was premium 
 	public boolean addDish(Dish d) {
-		/*  old array ->
-		if (numOfDishes < listOfDishes.length) {
-			listOfDishes[numOfDishes++] = d;
-			this.totalPrice += d.getPrice() *this.customer.getDiscount();
-			return true;
-		}
-		else {
-			System.out.println("you can`t add anymore dishs");
-			return false;
-		}
-		*/
+
 		listOfDishes.insertAtBack(d);
 		totalPrice += d.getPrice() * this.customer.getDiscount();
 		numOfDishes++;
@@ -56,10 +46,7 @@ public class Order implements Serializable {
 	public String toString() {
 		String s = "----------------------\n";
 		 s += "Order, restuarant name: "+ this.restaurant.getName() +", deleverd to: "+ this.customer.getName();
-		/*  old array ->
-		  for (int i =0; i< this.numOfDishes;i++) {
-			s += "\n" + this.listOfDishes[i];
-		}*/
+		
 		 Node current = listOfDishes.getHead();
 		 while(current !=  null) {
 			 s += "\n" + current.getData().toString();

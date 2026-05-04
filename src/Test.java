@@ -39,7 +39,7 @@ public class Test {
 		}
 	
 	
-	
+	DeliveryGUI gui  = new DeliveryGUI(app);
 	int option ;
 	System.out.println("Welocome to The delivery app  ");
 	while(true) {
@@ -49,7 +49,8 @@ public class Test {
 		System.out.println("3- Sing in as a new  customer");
 		System.out.println("4- Add money to cutomer a cccount");
 		System.out.println("5- Add a driver");
-		System.out.println("6- Exit");
+		System.out.println("6- show customer");
+		System.out.println("7- Exit");
 		option = input.nextInt();
 		 
 		switch (option) {
@@ -79,11 +80,18 @@ public class Test {
 			}
 			if(o.getNumOfDishes() !=0) {
 				System.out.println("This is your order\n" + o);
-				if (app.placeOrder(o)) {
+				/*if (app.placeOrder(o)) {
+				 * 
+				 */
+				try {
+					app.placeOrder(o);
 					o.getDriver().orderIsDelevired();
 					System.out.println("the order has arrived,\nThank YOU!");
 					System.out.println("--------------------------");
-				}}
+				}catch (BalanceException e) {
+					System.out.println(e);
+				}
+				}
 			System.out.println(c);
 			break;
 		case 2:
@@ -136,6 +144,10 @@ public class Test {
 			}
 			break;
 		case 3:
+			System.out.println("Launching GUI...");
+		    gui.showSignUp();; // Pass the current 'app' object here
+		    break;
+		    /*
 			System.out.println("--------------------------");
 			System.out.println("Choose an account type:");
 			System.out.println("1 - Preumiun account [15% discount on each order]");
@@ -148,7 +160,8 @@ public class Test {
 				app.addCust(new PremiumCustomer(input.next(),input.nextDouble() -50 ));
 			else if( a ==2) 
 				app.addCust(new RegularCustomer(input.next(),input.nextDouble()));
-			break;
+				*/
+			
 		case 4:
 			System.out.println("--------------------------");
 			app.displayCust();
@@ -163,6 +176,10 @@ public class Test {
 			app.addDriver(driver);
 			break;
 		case 6:
+			System.out.println("Opening Customer Display...");
+		    gui.showDisplay();; // Pass the current 'app' object here
+		    break;
+		case 7:
 			//exit
 			try {
 				FileOutputStream f = new FileOutputStream("info1.dat");
